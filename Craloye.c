@@ -5,16 +5,16 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 // Entry point for Windows applications
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-                   LPSTR lpCmdLine, int nCmdShow)
+    LPSTR lpCmdLine, int nCmdShow)
 {
     const char CLASS_NAME[] = "Craloye";
 
     // Step 1: Register the window class
-    WNDCLASS wc = {0};
-    wc.lpfnWndProc   = WindowProc;
-    wc.hInstance     = hInstance;
+    WNDCLASS wc = { 0 };
+    wc.lpfnWndProc = WindowProc;
+    wc.hInstance = hInstance;
     wc.lpszClassName = CLASS_NAME;
-    wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
+    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
     wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 
     RegisterClass(&wc);
@@ -39,7 +39,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     ShowWindow(hwnd, nCmdShow);
 
     // Step 3: Run the message loop
-    MSG msg = {0};
+    MSG msg = { 0 };
     while (GetMessage(&msg, NULL, 0, 0))
     {
         TranslateMessage(&msg);
@@ -54,18 +54,18 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
     {
-        case WM_DESTROY:
-            PostQuitMessage(0);
-            return 0;
-
-        case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hwnd, &ps);
-            TextOut(hdc, 20, 20, "Craloye", 7);
-            EndPaint(hwnd, &ps);
-        }
+    case WM_DESTROY:
+        PostQuitMessage(0);
         return 0;
+
+    case WM_PAINT:
+    {
+        PAINTSTRUCT ps;
+        HDC hdc = BeginPaint(hwnd, &ps);
+        TextOut(hdc, 20, 20, "Craloye", 7);
+        EndPaint(hwnd, &ps);
+    }
+    return 0;
     }
 
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
